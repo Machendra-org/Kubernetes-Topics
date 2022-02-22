@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hr-web-app
+  labels:
+    app: webapp-color
+  namespace: machinamespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapp-color
+  template:
+    metadata:
+      labels:
+        app: webapp-color
+    spec:
+      containers:
+      - name: hr-web-app-container
+        image: kodekloud/webapp-color
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "150m"
+          limits:
+            memory: "250Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80

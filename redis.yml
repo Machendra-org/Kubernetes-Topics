@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging-pod
+  labels:
+    app: redis-alpine
+  namespace: machinamespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-alpine
+  template:
+    metadata:
+      labels:
+        app: redis-alpine
+    spec:
+      containers:
+      - name: redis-container
+        image: redis:alpine
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "150m"
+          limits:
+            memory: "250Mi"
+            cpu: "150m"
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        type: machinode
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: messaging-pod-service
+  labels:
+    app: redis-alpine
+  namespace: machinamespace
+spec:
+  selector:
+    apps: redis-alpine
+  ports:
+  - protocol: TCP
+    port: 6379
+  type: ClusterIP
