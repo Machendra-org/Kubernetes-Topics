@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: super-user-pod
+  labels:
+    app: super-user
+  namespace: machinamespace
+spec:
+  containers:
+  - name: super-user-container
+    image: busybox:1.28
+    command:
+    - sleep
+    - "4800"
+    securityContext:
+      capabilities:
+        add: [ "SYS_TIME" ]
+
+

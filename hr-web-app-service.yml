@@ -1,46 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: messaging-pod
+  name: hr-web-app
   labels:
-    app: redis-alpine
+    app: webapp-color
   namespace: machinamespace
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: redis-alpine
+      app: webapp-color
   template:
     metadata:
       labels:
-        app: redis-alpine
+        app: webapp-color
     spec:
       containers:
-      - name: redis-container
-        image: redis:alpine
+      - name: hr-web-app-container
+        image: kodekloud/webapp-color
         resources:
           requests:
             memory: "150Mi"
             cpu: "150m"
           limits:
             memory: "250Mi"
-            cpu: "150m"
+            cpu: "250m"
         ports:
         - containerPort: 80
-      nodeSelector:
-        type: machinode
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: messaging-pod-service
-  labels:
-    app: redis-alpine
+  name: hr-web-app-svc
   namespace: machinamespace
 spec:
   selector:
-    apps: redis-alpine
+    app: webapp-color
   ports:
-  - protocol: TCP
-    port: 6379
-  type: ClusterIP
+  - procotol: TCP
+    port: 8080
+    nodePort: 30082
+  type: NodePort

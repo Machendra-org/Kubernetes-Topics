@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-resolver
+  labels:
+    app: sooraj
+  namespace: machinamespace
+spec:
+  containers:
+  - name: nginx-resolver-container
+    image: busybox:1.28
+    command:
+    - sleep
+    - "4800"
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-resolver-svc
+  namespace: machinamespace
+spec:
+  selector:
+    app: sooraj
+  ports:
+  - protocol: TCP
+    port: 80
+  type: ClusterIP

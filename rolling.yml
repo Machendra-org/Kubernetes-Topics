@@ -1,0 +1,32 @@
+#RollingUpdate example
+#kubectl set image deployment <deployment> <container>=<image> --record
+#kubectl set image deployment nginx-deploy nginx-deploy-container=nginx:1.17 --record -n machinamespace
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    app: nginx-rolling
+  namespace: machinamespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-rolling
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: nginx-rolling
+    spec:
+      containers:
+      - name: nginx-deploy-container
+        image: nginx:1.16
+        ports:
+        - containerPort: 80 
