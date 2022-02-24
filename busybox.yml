@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-pod
+  namespace: machinamespace
+spec:
+  containers:
+  - name: dnscheck
+    image: busybox:1.28
+    command:
+    - sleep
+    - "4800"
+    ports:
+    - containerPort: 90

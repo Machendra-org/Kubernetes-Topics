@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - name: nginx-resolver-container
-    image: busybox:1.28
+    image: nginx
     command:
     - sleep
     - "4800"
