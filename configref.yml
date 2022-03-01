@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+  namespace: machinamespace
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      env:
+        - name: PLAYER_INITIAL_LIVES                           
+          valueFrom:
+            configMapKeyRef:
+              name: machi-configmap           
+              key: player_initial_lives 
+        - name: UI_PROPERTIES_FILE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: machi-configmap
+              key: ui_properties_file_name
+      volumeMounts:
+        - name: task-pv-storage
+          mountPath: "/test-ebs"
+          readOnly: true
+  volumes:
+    - name: task-pv-storage
+      configMap:
+        name: machi-configmap
+        items:
+        - key: "game.player"
+          path: "game.player"
+        - key: "user-interface.properties"
+          path: "user-interface.properties"

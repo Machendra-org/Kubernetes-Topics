@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-pod
+  namespace: machinamespace
+spec:
+  containers:
+  - name: machi-nginx
+    image: nginx
+    env:
+    - name: DATA_BASES
+      valueFrom:
+        configMapKeyRef:
+          name: cm-3392845
+          key: DATA_BASES

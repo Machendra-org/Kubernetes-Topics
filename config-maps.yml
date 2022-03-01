@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-3392845
+  namespace: machinamespace
+data:
+  DATA_BASES:
+    DB_NAME=SQL332
+    DB_HOST=sql322.mycompany.com
+    DB_PORT=3006
+

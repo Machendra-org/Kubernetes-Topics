@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-pvc-machi
+  namespace: machinamespace
+  labels:
+    app: pvc
+spec:
+  selector:
+    matchLabels:
+      app: pvc
+  template:
+    metadata:
+      labels:
+        app: pvc
+    spec:
+      containers:
+      - name: pvc-container
+        image: nginx
+        volumeMounts:
+        - mountPath: /test-ebs
+          name: test-volume
+      volumes:
+      - name: test-volume
+        persistentVolumeClaim:
+          claimName: machi-pvc 

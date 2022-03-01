@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: machi-pv-volume
+  labels:
+    type: local
+  namespace: machinamespace
+spec:
+  storageClassName: gp2
+  capacity:
+    storage: 10Gi
+  awsElasticBlockStore:
+    volumeID: "vol-0f4062d1833c95166"
+    fsType: ext4
+  accessModes:
+    - ReadWriteOnce

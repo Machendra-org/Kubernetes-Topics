@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-448839
+  namespace: machinamespace
+  labels:
+    app: all
+spec:
+  selector:
+    matchLabels:
+      app: all
+  template:
+    metadata:
+      labels:
+        app: all
+    spec:    
+      containers:
+      - name: nginx-448839-container
+        image: nginx:alpine
+        ports:
+        - containerPort: 80 
