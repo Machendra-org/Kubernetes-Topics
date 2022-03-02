@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clintapp-deployment
+  labels:
+    app: clint-app
+  namespace: machinamespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clint-app
+  template:
+    metadata:
+      labels:
+        app: clint-app
+    spec:
+      containers:
+      - name: clint-app
+        image: machendra2612/clint_app
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clintapp-service
+  namespace: machinamespace
+spec:
+  selector:
+    app: clint-app
+  ports:
+  - protocol: TCP
+    port: 5000
+  type: LoadBalancer

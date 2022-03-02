@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: machi-deployment
+  labels:
+    app: nginx
+  namespace: machinamespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        resources:
+          requests:
+            memory: "150Mi"
+            cpu: "150m"
+          limits:
+            memory: "200Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 80
+      
+
+
