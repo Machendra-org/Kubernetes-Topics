@@ -20,14 +20,12 @@ pipeline {
         '''
       }
     }
-    /*
     stage ('Deploy image to Helm') {
       steps{
         //sh 'helm create clint-app'
-        sh 'helm install machi-clintapp clint-app'
+        sh 'helm upgrade --install machi-nodeapp node-app'
         //sh 'helm upgrade machi-clintapp clint-app'
       }
     }
-    */
   }
 }
