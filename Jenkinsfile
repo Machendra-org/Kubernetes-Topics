@@ -14,9 +14,9 @@ pipeline {
     }
     stage ('Push image to ECR') {
       steps{
-        sh ''' docker tag node-app 883195043912.dkr.ecr.us-west-2.amazonaws.com/machihelmrepo:node-app
+        sh ''' docker tag node-app 883195043912.dkr.ecr.us-west-2.amazonaws.com/machinodeapp:node-app
         aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 883195043912.dkr.ecr.us-west-2.amazonaws.com
-        docker push 883195043912.dkr.ecr.us-west-2.amazonaws.com/machihelmrepo:node-app
+        docker push 883195043912.dkr.ecr.us-west-2.amazonaws.com/machinodeapp:node-app
         '''
       }
     }
